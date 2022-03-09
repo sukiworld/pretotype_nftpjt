@@ -6,6 +6,11 @@ import pandas as pd
 import json 
 import requests
 import numpy as np
+import warnings
+from PIL import Image
+import time
+
+warnings.filterwarnings("ignore", category=FutureWarning)
 #%%
 
 menu_items = {
@@ -17,31 +22,84 @@ menu_items = {
     '''
 }
 
-st.title('NFT Projects Stats')
 
-@st.cache
-def load_data(nrows):
-    aa = pd.read_csv('test.csv')
-    collection_list = aa["Collection"].values
-    collection_list = collection_list[:nrows] #item holder sort, sales volumne >= 500
+# @st.cache
+# def load_data(nrows):
+#     aa = pd.read_csv('/Users/seri/Desktop/suki/streamlit-example/test.csv')
+#     collection_list = aa["Collection"].values
+#     collection_list = collection_list[:nrows] #item holder sort, sales volumne >= 500
 
+#     final_df = pd.DataFrame()
+#     for i in collection_list:
+#         url = "https://api.opensea.io/api/v1/collection/"+i+"/stats"
+#         r = requests.get(url) 
+#         j = json.loads(r.text)
+#         df =  pd.json_normalize(j)
+#         print(df)
+#         final_df = final_df.append(df)
+
+#     final_df["collection"] = collection_list
+#     return final_df
+
+# data = load_data(10)
+
+st.title('🧪 Welcome to NFTBank DS Labs')
+st.subheader("🕵🏻 Search for NFT projects and Check their trend")
+st.text('plz ping us in the discord if you have any questions')
+# data_load_state = st.text('Loading data...')
+# data_load_state.text("Done! (using st.cache)")
+st.text(' \n \n \n \n ')
+st.text(' \n \n \n \n ')
+
+st.subheader("1. Find an official collection name in here ")
+image = Image.open('/Users/seri/Desktop/suki/streamlit-example/example_pic.png')
+st.image(image)
+st.text('                 ▲ this is an example image')
+
+st.text(' \n \n \n \n ')
+st.text(' \n \n \n \n ')
+
+st.subheader("2. Type the collection name in the box")
+# user_input = st.text_input("⚠️ opensea official collection name only!", 'doodles-official')
+user_input = st.text_input("⚠️ opensea official collection name only! Check the example collection below", 'doodles-official, playboyrabbitars, boredapeyachtclub')
+
+@st.cache(allow_output_mutation=True)
+def load_data(user_input):
     final_df = pd.DataFrame()
-    for i in collection_list:
-        url = "https://api.opensea.io/api/v1/collection/"+i+"/stats"
+    user_input = user_input.replace(" ", "")
+    split_word = user_input.split(',')
+    res = len(split_word)
+    for i in range(res):
+        final_df["collection"] = user_input
+        url = "https://api.opensea.io/api/v1/collection/"+split_word[i]+"/stats"
         r = requests.get(url) 
         j = json.loads(r.text)
         df =  pd.json_normalize(j)
-        print(df)
         final_df = final_df.append(df)
+    return final_df, split_word
 
-    final_df["collection"] = collection_list
-    return final_df
+data, split_word = load_data(user_input)
+data["collection"] = split_word
 
-data_load_state = st.text('Loading data...')
-data = load_data(10)
-data_load_state.text("Done! (using st.cache)")
+with st.spinner('Take a deep breath and feel happy'):
+    time.sleep(5)
+st.success('Done!')
 
-st.dataframe(data)
+# st.dataframe(data)
+st.text('💛 volume for each project')
+
+change_col = ['collection'] + data.filter(like='volume').columns.tolist()
+change_df = data[change_col]
+st.dataframe(change_df)
+
+st.text('💛 volume change rate for each project')
+change_col = ['collection'] + data.filter(like='change').columns.tolist()
+change_df = data[change_col]
+st.dataframe(change_df)
+
+# st.line_chart(change_df[data.filter(like='change').columns.tolist()])
+
+
 
 # if st.checkbox('Show raw data'):
 #     st.subheader('Raw data')
