@@ -22,7 +22,6 @@ menu_items = {
     '''
 }
 
-
 # @st.cache
 # def load_data(nrows):
 #     aa = pd.read_csv('/Users/seri/Desktop/suki/streamlit-example/test.csv')
@@ -52,9 +51,9 @@ st.text(' \n \n \n \n ')
 st.text(' \n \n \n \n ')
 
 st.subheader("1. Find an official collection name in here ")
-image = Image.open('/Users/seri/Desktop/suki/streamlit-example/example_pic.png')
-st.image(image)
-st.text('                 ▲ this is an example image')
+# image = Image.open('https://github.com/sukiworld/pretotype_nftpjt/blob/master/example_pic.png?raw=true')
+st.image('https://github.com/sukiworld/pretotype_nftpjt/blob/master/example_pic.png?raw=true')
+st.text('▲ this is an example image')
 
 st.text(' \n \n \n \n ')
 st.text(' \n \n \n \n ')
