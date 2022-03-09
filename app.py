@@ -55,7 +55,7 @@ st.text(' \n \n \n \n ')
 st.subheader("1. Find an official collection name in here ")
 # image = Image.open('https://github.com/sukiworld/pretotype_nftpjt/blob/master/example_pic.png?raw=true')
 st.image('https://github.com/sukiworld/pretotype_nftpjt/blob/master/example_pic.png?raw=true')
-st.text('▲ this is an example image')
+st.markdown("<div align= 'center'> ▲ this is an example image </div>", unsafe_allow_html=True)
 
 st.text(' \n \n \n \n ')
 st.text(' \n \n \n \n ')
@@ -86,6 +86,10 @@ with st.spinner('Take a deep breath and feel happy'):
     time.sleep(5)
 st.success('Done!')
 
+st.text(' \n \n \n \n ')
+st.text(' \n \n \n \n ')
+st.text(' \n \n \n \n ')
+st.text(' \n \n \n \n ')
 # st.dataframe(data)
 cc = data[['collection','stats.total_volume']]
 st.text('📊 Total volume for each project')
@@ -103,6 +107,9 @@ st.text('💛 Volume change rate for each project')
 change_col = ['collection'] + data.filter(like='change').columns.tolist()
 change_df = data[change_col]
 st.dataframe(change_df)
+
+
+
 # st.bar_chart(data = data[['collection','stats.one_day_change']], x = data["collection"], y = data["stats.one_day_change"])
 
 
