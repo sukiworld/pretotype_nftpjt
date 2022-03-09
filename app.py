@@ -9,6 +9,8 @@ import numpy as np
 import warnings
 from PIL import Image
 import time
+import altair as alt
+import plotly.express as px
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 #%%
@@ -85,19 +87,40 @@ with st.spinner('Take a deep breath and feel happy'):
 st.success('Done!')
 
 # st.dataframe(data)
-st.text('💛 volume for each project')
+st.text('📊 Total volume for each project')
+fig = px.bar(cc, x='collection', y='stats.total_volume')
+st.plotly_chart(fig, use_container_width=True)
+
+
+st.text('💛 Volume for each project')
 
 change_col = ['collection'] + data.filter(like='volume').columns.tolist()
 change_df = data[change_col]
 st.dataframe(change_df)
 
-st.text('💛 volume change rate for each project')
+st.text('💛 Volume change rate for each project')
 change_col = ['collection'] + data.filter(like='change').columns.tolist()
 change_df = data[change_col]
 st.dataframe(change_df)
+cc = data[['collection','stats.one_day_change']]
+# st.bar_chart(data = data[['collection','stats.one_day_change']], x = data["collection"], y = data["stats.one_day_change"])
 
-# st.line_chart(change_df[data.filter(like='change').columns.tolist()])
 
+
+
+
+# chart = (
+#     alt.Chart(cc)
+#     .mark_bar()
+#     .encode(
+#         x=alt.X("stats.one_day_change"),
+#         y=alt.Y("collection"),
+#         # color=alt.Color("variable", type="nominal", title=""),
+#         # order=alt.Order("variable", sort="descending"),
+#     )
+# )
+
+# st.altair_chart(chart, use_container_width=True)
 
 
 # if st.checkbox('Show raw data'):
