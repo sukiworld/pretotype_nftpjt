@@ -87,7 +87,7 @@ with st.spinner('Take a deep breath and feel happy'):
 st.success('Done!')
 
 # st.dataframe(data)
-cc = data[['collection','stats.one_day_change']]
+cc = data[['collection','stats.total_volume']]
 st.text('📊 Total volume for each project')
 fig = px.bar(cc, x='collection', y='stats.total_volume')
 st.plotly_chart(fig, use_container_width=True)
