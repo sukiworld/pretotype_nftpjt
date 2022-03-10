@@ -24,39 +24,35 @@ menu_items = {
     '''
 }
 
-# @st.cache
-# def load_data(nrows):
-#     aa = pd.read_csv('/Users/seri/Desktop/suki/streamlit-example/test.csv')
-#     collection_list = aa["Collection"].values
-#     collection_list = collection_list[:nrows] #item holder sort, sales volumne >= 500
-
-#     final_df = pd.DataFrame()
-#     for i in collection_list:
-#         url = "https://api.opensea.io/api/v1/collection/"+i+"/stats"
-#         r = requests.get(url) 
-#         j = json.loads(r.text)
-#         df =  pd.json_normalize(j)
-#         print(df)
-#         final_df = final_df.append(df)
-
-#     final_df["collection"] = collection_list
-#     return final_df
-
 # data = load_data(10)
+st.set_page_config(
+    page_title="NFT Project Comparison",
+    page_icon="💛",
+    layout="centered",
+)
+
 
 st.title('🧪 Welcome to NFTBank DS Labs')
 st.subheader("🕵🏻 Search for NFT projects and Check their trend")
 st.text('plz ping us in the discord if you have any questions')
+st.markdown(
+    """<a style='display: block; text-align: center;' href="https://discord.gg/by85HJ7J92">Let's go to NFTBank Discord!</a>
+    """,
+    unsafe_allow_html=True,
+)
 # data_load_state = st.text('Loading data...')
 # data_load_state.text("Done! (using st.cache)")
 st.text(' \n \n \n \n ')
 st.text(' \n \n \n \n ')
 
 st.subheader("1. Find an official collection name in here ")
-# image = Image.open('https://github.com/sukiworld/pretotype_nftpjt/blob/master/example_pic.png?raw=true')
 st.image('https://github.com/sukiworld/pretotype_nftpjt/blob/master/example_pic.png?raw=true')
 st.markdown("<div align= 'center'> ▲ this is an example image </div>", unsafe_allow_html=True)
-
+st.markdown(
+    """<a style='display: block; text-align: center;' href="https://opensea.io/"> Opensea link</a>
+    """,
+    unsafe_allow_html=True,
+)
 st.text(' \n \n \n \n ')
 st.text(' \n \n \n \n ')
 
@@ -91,6 +87,7 @@ st.text(' \n \n \n \n ')
 st.text(' \n \n \n \n ')
 st.text(' \n \n \n \n ')
 # st.dataframe(data)
+
 cc = data[['collection','stats.total_volume']]
 st.text('📊 Total volume for each project')
 fig = px.bar(cc, x='collection', y='stats.total_volume')
