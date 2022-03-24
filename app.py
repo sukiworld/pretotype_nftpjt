@@ -13,7 +13,9 @@ import altair as alt
 import plotly.express as px
 
 warnings.filterwarnings("ignore", category=FutureWarning)
+
 #%%
+()
 
 menu_items = {
     'Get help' : 'https://github.com/sukiworld/pretotype_nftpjt',
